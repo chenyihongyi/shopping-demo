@@ -1,14 +1,17 @@
-/**
- * 
- */
 package cn.itcast.shop.index.action;
 
+import com.opensymphony.xwork2.ActionSupport;
+
 /**
- * @Description: 
+ * @Description: é¦–é¡µè®¿é—®çš„action
  * @Author: chenyihong
- * @Date: 2019Äê1ÔÂ2ÈÕ
+ * @Date: 2019å¹´1æœˆ2æ—¥
  */
-public class IndexAction {
+public class IndexAction extends ActionSupport{
 	
+	public String execute(){
+		
+		return "index";
+	}
 
 }
