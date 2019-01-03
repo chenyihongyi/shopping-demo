@@ -26,4 +26,9 @@ public class UserService {
     public User findByUsername(String username) {
         return userDao.findByUserName(username);
     }
+
+    //业务层完成用户注册代码
+    public void save(User user) {
+        // TODO day01 part11 2:02
+    }
 }

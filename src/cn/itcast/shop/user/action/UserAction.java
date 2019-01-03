@@ -52,6 +52,15 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
         return NONE;
     }
 
+    /**
+     * 用户注册的方法
+     * @return
+     */
+    public String regist(){
+        userService.save(user);
+        return NONE;
+    }
+
     @Override
     public User getModel() {
         return user;
