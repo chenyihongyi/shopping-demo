@@ -39,6 +39,8 @@
 
 		<!-- 配置Hibernate的映射文件 -->
 
+
+
 	</bean>
 
 	<!-- 事务管理: -->
@@ -51,20 +53,25 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<!-- Action的配置 ===========================-->
-	
-	<!-- 首页访问的Action -->
+		<!-- 首页访问的Action -->
 	<bean id="indexAction" class="cn.itcast.shop.index.action.IndexAction" scope="prototype">
 
 	</bean>
-
+		
 	<!--用户模块的Action-->
 	<bean id="userAction" class="cn.itcast.shop.user.action.UserAction" scope="prototype">
-
-
+		<!--注入Service-->
+		<property name="userService" ref="userService"/>
 	</bean>
 
 	<!-- Service的配置 -->
+	<bean id="userService" class="cn.itcast.shop.user.service.UserService">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+
 
 	<!-- Dao的配置 -->
-
+	<bean id="userDao" class="cn.itcast.shop.user.dao.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>

@@ -7,6 +7,55 @@
     <title>会员注册</title>
     <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="${pageContext.request.contextPath}/css/register.css" rel="stylesheet" type="text/css"/>
+
+    <script>
+        function checkForm() {
+            var username = document.getElementById("username").value;
+            if(username == null || username == ''){
+                alert("用户名不能为空!");
+                return false;
+            }
+
+            var password = document.getElementById("password").value;
+            if(password == null || password == ''){
+                alter("密码不能为空!");
+                return false;
+            }
+
+            var repassword = document.getElementById("repassword").value();
+            if(repassword !=password){
+                alter("两次密码输入不能为空!");
+                return false;
+            }
+        }
+
+        function checkUsername() {
+            var username = document.getElementById("username").value;
+            var xhr = createXmlHttp();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        document.getElementById("span1").innerHTML = xhr.responseText;
+                    }
+                }
+            }
+            xhr.open("GET","${pageContext.request.contextPath}/user_findByName.action?time="+new Data().getTime()+"&username="+username, true);
+            xhr.send(null);
+        }
+        
+        function createXmlHttp() {
+            var xmlHttp;
+            try{
+                xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch (e) {
+                try{
+                    xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (e){}
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container header">
@@ -31,14 +80,15 @@
                 <div class="title">
                     <strong>会员注册</strong>USER REGISTER
                 </div>
-                <form id="registerForm"  method="post" novalidate="novalidate">
+                <form id="registerForm"  method="post" novalidate="novalidate" onsubmit="return checkForm();">
                     <table>
                         <tbody><tr>
                             <th>
                                 <span class="requiredField">*</span>用户名:
                             </th>
                             <td>
-                                <input type="text" id="username" name="username" class="text" maxlength="20">
+                                <input type="text" id="username" name="username" class="text" maxlength="20" onblur="checkUsername()">
+                                <span id="span1"></span>
                             </td>
                         </tr>
                         <tr>
@@ -46,7 +96,7 @@
                                 <span class="requiredField">*</span>密&nbsp;&nbsp;码:
                             </th>
                             <td>
-                                <input type="password" id="password" name="password" class="text" maxlength="20" autocomplete="off">
+                                <input type="password" id="password" name="password" class="text" maxlength="20" autocomplete="off"/>
                             </td>
                         </tr>
                         <tr>
@@ -54,7 +104,7 @@
                                 <span class="requiredField">*</span>确认密码:
                             </th>
                             <td>
-                                <input type="password" name="rePassword" class="text" maxlength="20" autocomplete="off">
+                                <input id="repassword" type="password" name="repassword" class="text" maxlength="20" autocomplete="off"/>
                             </td>
                         </tr>
                         <tr>
@@ -70,30 +120,16 @@
                                 姓名:
                             </th>
                             <td>
-                                <input type="text" name="memberAttribute_1" class="text" maxlength="200">
+                                <input type="text" name="name" class="text" maxlength="200">
                             </td>
                         </tr>
+
                         <tr>
                             <th>
-                                性别:
+                                电话:
                             </th>
                             <td>
-												<span class="fieldSet">
-														<label>
-															<input type="radio" name="memberAttribute_2" value="male">男
-														</label>
-														<label>
-															<input type="radio" name="memberAttribute_2" value="female">女
-														</label>
-												</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                出生日期:
-                            </th>
-                            <td>
-                                <input type="text" name="memberAttribute_3" class="text" onfocus="WdatePicker();">
+                                <input type="text" name="phone" class="text" />
                             </td>
                         </tr>
 
@@ -102,7 +138,7 @@
                                 地址:
                             </th>
                             <td>
-                                <input type="text" name="memberAttribute_5" class="text" maxlength="200">
+                                <input type="text" name="addr" class="text" maxlength="200" />
                             </td>
                         </tr>
                         <tr>
